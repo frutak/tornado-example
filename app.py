@@ -290,15 +290,6 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
 
 
-application = tornado.wsgi.WSGIApplication([
-    (r"/", MainHandler),
-    # handling initial dispatch HTTPS POST call to eu-disp.coolkit.cc
-    (r'/dispatch/device', DispatchDevice),
-    # handling actual payload communication on WebSockets
-    (r'/api/ws', WebSocketHandler),
-    (r'/ota/(.*)', OTAUpdate, {'path': "static/"}),
-])
-
 
 def logjson(data, outbound=True):
     if outbound:
@@ -316,8 +307,12 @@ def logjson(data, outbound=True):
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-           (r"/", MainHandler),
-           (r"/([^/]+)", FourOhFourHandler),
+            (r"/", MainHandler),
+            # handling initial dispatch HTTPS POST call to eu-disp.coolkit.cc
+            (r'/dispatch/device', DispatchDevice),
+            # handling actual payload communication on WebSockets
+            (r'/api/ws', WebSocketHandler),
+            (r'/ota/(.*)', OTAUpdate, {'path': "static/"}),
         ]
         settings = dict(
             site_title=options.site_title,
