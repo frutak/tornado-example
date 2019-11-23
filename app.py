@@ -28,8 +28,6 @@ define("port", default="8000", help="Listening port", type=str)
 
 seenfiles = []
 myserver = 'frutak.pythonanywhere.com'
-DEFAULT_PORT_HTTPS = 8443
-DEFAULT_PORT_HTTP = 8080
 upgrade_file_user1 = "image_user1-0x01000.bin"
 upgrade_file_user2 = "image_user2-0x81000.bin"
 arduino_file = "image_arduino.bin"
@@ -58,7 +56,7 @@ class DispatchDevice(tornado.web.RequestHandler):
             "error": 0,
             "reason": "ok",
             "IP": myserver,
-            "port": DEFAULT_PORT_HTTPS
+            "port": port
         }
         print(">> %s" % self.request.path)
         logjson(data)
@@ -248,7 +246,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                         "binList": [
                             {
                                 "downloadUrl": "http://%s:%s/%s/%s" %
-                                (myserver, DEFAULT_PORT_HTTP, udir, upgrade_file_user1),
+                                (myserver, port, udir, upgrade_file_user1),
                                 # the device expects and checks the sha256 hash of
                                 #   the transmitted file
                                 "digest": hash_user1,
@@ -256,7 +254,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                             },
                             {
                                 "downloadUrl": "http://%s:%s/%s/%s" %
-                                (myserver, DEFAULT_PORT_HTTP, udir, upgrade_file_user2),
+                                (myserver, port, udir, upgrade_file_user2),
                                 # the device expects and checks the sha256 hash of
                                 #   the transmitted file
                                 "digest": hash_user2,
