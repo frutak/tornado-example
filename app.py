@@ -326,10 +326,11 @@ class Application(tornado.web.Application):
 
 
 def main():
-    tornado.options.parse_command_line()
-    print ("Server listening on port " + str(options.port))
+    #tornado.options.parse_command_line()
+    #options.port
+    print ("Server listening on port " + str(port))
     http_server = tornado.httpserver.HTTPServer(Application())
-    http_server.listen(options.port)
+    http_server.listen(port)
     tornado.ioloop.IOLoop.instance().start()
 
 if __name__ == "__main__":
