@@ -29,7 +29,7 @@ define("cookie_secret", default="sooooooosecret", help="Your secret cookie dough
 
 seenfiles = []
 myserver = 'https://frutota.herokuapp.com/'
-port = process.env.PORT
+port = options.port
 upgrade_file_user1 = "image_user1-0x01000.bin"
 upgrade_file_user2 = "image_user2-0x81000.bin"
 arduino_file = "image_arduino.bin"
@@ -327,9 +327,9 @@ class Application(tornado.web.Application):
 
 def main():
     tornado.options.parse_command_line()
-    print ("Server listening on port " + str(port))
+    print ("Server listening on port " + str(options.port))
     http_server = tornado.httpserver.HTTPServer(Application())
-    http_server.listen(port)
+    http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
 
 if __name__ == "__main__":
