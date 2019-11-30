@@ -20,14 +20,16 @@ from hashlib import sha256
 define("environment", default="development", help="Pick you environment", type=str)
 define("site_title", default="Tornado Example", help="Site Title", type=str)
 define("cookie_secret", default="sooooooosecret", help="Your secret cookie dough", type=str)
-define("port", default="8000", help="Listening port", type=str)
+#define("port", default="8000", help="Listening port", type=str)
+
 
 
 
 
 
 seenfiles = []
-myserver = 'frutak.pythonanywhere.com'
+myserver = 'https://frutota.herokuapp.com/'
+port = process.env.PORT || 8080
 upgrade_file_user1 = "image_user1-0x01000.bin"
 upgrade_file_user2 = "image_user2-0x81000.bin"
 arduino_file = "image_arduino.bin"
@@ -325,9 +327,9 @@ class Application(tornado.web.Application):
 
 def main():
     tornado.options.parse_command_line()
-    print ("Server listening on port " + str(options.port))
+    print ("Server listening on port " + str(port))
     http_server = tornado.httpserver.HTTPServer(Application())
-    http_server.listen(options.port)
+    http_server.listen(port)
     tornado.ioloop.IOLoop.instance().start()
 
 if __name__ == "__main__":
