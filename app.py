@@ -29,7 +29,7 @@ define("cookie_secret", default="sooooooosecret", help="Your secret cookie dough
 
 seenfiles = []
 myserver = 'https://frutota.herokuapp.com/'
-port = options.port
+port = int(os.environ.get("PORT", 17995))
 upgrade_file_user1 = "image_user1-0x01000.bin"
 upgrade_file_user2 = "image_user2-0x81000.bin"
 arduino_file = "image_arduino.bin"
